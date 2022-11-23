@@ -4,3 +4,4 @@
 # Multiple includes used 
 
 #  [Op.in]: Sequelize.literal[(`Select userID from game where gamename LIKE '%${criteria.search}%'`),"nameOfGame"],
+#  [Op.in]: Sequelize.literal(`(Select userID from game where gamename LIKE '%${criteria.search}%'`),"nameOfGame")

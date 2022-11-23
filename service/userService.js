@@ -37,7 +37,7 @@ exports.getuserall = (criteria, limit, offset) => {
   return new Promise((resolve, reject) => {
     let where = {};
     console.log(criteria, "cccccc");
-    // let gamewhere = {};
+
     let order = [["createdAt", "DESC"]];
     if (criteria.sortBy && criteria.orderBy) {
       order = [[criteria.sortBy, criteria.orderBy]];
