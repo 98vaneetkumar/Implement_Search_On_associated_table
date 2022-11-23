@@ -1,0 +1,6 @@
+/node_modules/
+/.env
+# It is the condition like user -> game -> ground -> location
+# Multiple includes used 
+
+#  [Op.in]: Sequelize.literal[(`Select userID from game where gamename LIKE '%${criteria.search}%'`),"nameOfGame"],
