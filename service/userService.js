@@ -54,13 +54,13 @@ exports.getuserall = (criteria, limit, offset) => {
                        ( select ground.gameId from ground inner join
                        location on ground.groundId=location.groundID where locationName LIKE '%${criteria.search}%')
                 UNION ALL
-                Select userID from game as game INNER JOIN ground as ground ON game.gameId=ground.gameID where   groundName LIKE '%${criteria.search}%') `
+                Select userID from game as game INNER JOIN ground as ground ON game.gameId=ground.gameID where   groundName LIKE '%${criteria.search}%' 
+                UNION ALL
+                SELECT userId FROM user WHERE (CONCAT(firstName, ' ', lastName)) LIKE '%${criteria.search}%')
+                `
               ),
             },
           },
-          userId:{
-            [Op.in]:Sequelize.literal(`( SELECT userId FROM user WHERE (CONCAT(firstName, ' ', lastName)) LIKE '%${criteria.search}%')`)
-          }
         },
       };
     }
