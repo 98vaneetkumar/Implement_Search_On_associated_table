@@ -10,9 +10,15 @@ const user = sequelize.define(
       defaultValue: DataTypes.INTEGER,
       allowNull: false,
     },
-    name: {
+    firstName:{
       type: DataTypes.STRING,
     },
+    lastName:{
+      type: DataTypes.STRING,
+    },
+    // name: {
+    //   type: DataTypes.STRING,
+    // },
     email: {
       type: DataTypes.STRING,
       allowNull: true,

@@ -5,3 +5,14 @@
 
 #  [Op.in]: Sequelize.literal[(`Select userID from game where gamename LIKE '%${criteria.search}%'`),"nameOfGame"],
 #  [Op.in]: Sequelize.literal(`(Select userID from game where gamename LIKE '%${criteria.search}%'`),"nameOfGame")
+
+  //       // [Op.in]: Sequelize.literal(
+        //       //   `(Select userID from game as game INNER JOIN ground as ground ON game.gameId=ground.gameID where groundName LIKE '%${criteria.search}%')`
+        //       // ),
+        //       // [Op.in]:
+        //       //   Sequelize.literal(`( select distinct game.userID from game inner join ground on game.gameId=
+        //       //     ( select ground.gameId from ground inner join
+        //       //     location on ground.groundId=location.groundID where locationName LIKE '%${criteria.search}%'))`),
+        //       // [Op.in]: Sequelize.literal(
+        //       //   `(Select userID from game where gamename LIKE '%${criteria.search}%' OR gameLevel LIKE '%${criteria.search}%')`
+        //       // ),

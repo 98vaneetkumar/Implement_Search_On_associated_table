@@ -38,44 +38,33 @@ exports.getuserall = (criteria, limit, offset) => {
     let where = {};
     console.log(criteria, "cccccc");
 
-    let order = [["createdAt", "DESC"]];
+    let order = [["userId", "ASC"]];
     if (criteria.sortBy && criteria.orderBy) {
       order = [[criteria.sortBy, criteria.orderBy]];
     }
     if (criteria && criteria.search) {
       where = {
         [Op.or]: {
-          name: {
-            [Op.like]: "%" + criteria.search + "%",
-          },
           userId: {
             [Op.or]: {
-              // [Op.in]: Sequelize.literal(
-              //   `(Select userID from game as game INNER JOIN ground as ground ON game.gameId=ground.gameID where groundName LIKE '%${criteria.search}%')`
-              // ),
-              // [Op.in]:
-              //   Sequelize.literal(`( select distinct game.userID from game inner join ground on game.gameId=
-              //     ( select ground.gameId from ground inner join
-              //     location on ground.groundId=location.groundID where locationName LIKE '%${criteria.search}%'))`),
-              // [Op.in]: Sequelize.literal(
-              //   `(Select userID from game where gamename LIKE '%${criteria.search}%' OR gameLevel LIKE '%${criteria.search}%')`
-              // ),
               [Op.in]: Sequelize.literal(
                 `(  Select userID from game where gamename LIKE '%${criteria.search}%' OR gameLevel LIKE '%${criteria.search}%'
-                UNION ALL 
-                 select distinct game.userID from game inner join ground on game.gameId= 
+                UNION ALL
+                 select distinct game.userID from game inner join ground on game.gameId=
                        ( select ground.gameId from ground inner join
-                       location on ground.groundId=location.groundID where locationName LIKE '%${criteria.search}%') 
+                       location on ground.groundId=location.groundID where locationName LIKE '%${criteria.search}%')
                 UNION ALL
                 Select userID from game as game INNER JOIN ground as ground ON game.gameId=ground.gameID where   groundName LIKE '%${criteria.search}%') `
               ),
             },
           },
+          userId:{
+            [Op.in]:Sequelize.literal(`( SELECT userId FROM user WHERE (CONCAT(firstName, ' ', lastName)) LIKE '%${criteria.search}%')`)
+          }
         },
       };
     }
     console.log(where, "cccccc");
-
     Model.userModel
       .findAll({
         limit,
